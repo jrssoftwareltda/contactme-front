@@ -1,0 +1,42 @@
+<svg width="960" height="240" viewBox="0 0 960 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="40" y1="35" x2="210" y2="205" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon -->
+  <g>
+    <!-- Chat bubble -->
+    <rect x="40" y="35" width="170" height="145" rx="42" fill="url(#accent)"/>
+    <path d="M85 176 L63 207 L110 181" fill="url(#accent)"/>
+
+    <!-- Contact / connection symbol -->
+    <circle cx="98" cy="107" r="16" fill="white"/>
+    <circle cx="154" cy="107" r="16" fill="white"/>
+    <path d="M114 107 H138" stroke="white" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="250" y="126"
+        font-family="Inter, Arial, Helvetica, sans-serif"
+        font-size="72"
+        font-weight="700"
+        letter-spacing="-2.5"
+        fill="#111827">Contact</text>
+  <text x="535" y="126"
+        font-family="Inter, Arial, Helvetica, sans-serif"
+        font-size="72"
+        font-weight="700"
+        letter-spacing="-2.5"
+        fill="#2563EB">Me</text>
+
+  <!-- Descriptor -->
+  <text x="254" y="164"
+        font-family="Inter, Arial, Helvetica, sans-serif"
+        font-size="20"
+        font-weight="500"
+        letter-spacing="1.2"
+        fill="#6B7280">INSTANT WEB MESSAGING</text>
+</svg>
