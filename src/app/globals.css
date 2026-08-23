@@ -25,10 +25,27 @@ button { color: inherit; }
 img { max-width: 100%; display: block; }
 
 .page-container { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
-.brand-logo { display: inline-flex; width: 178px; height: 48px; align-items: center; overflow: hidden; flex: 0 0 auto; }
-.brand-logo img { width: 178px; height: auto; }
-.brand-logo--compact { width: 150px; }
-.brand-logo--compact img { width: 150px; }
+.brand-logo {
+  display: inline-flex;
+  width: 267px;
+  height: 72px;
+  align-items: center;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.brand-logo img {
+  width: 267px;
+  height: auto;
+}
+
+.brand-logo--compact {
+  width: 225px;
+}
+
+.brand-logo--compact img {
+  width: 225px;
+}
 
 .button { border: 0; border-radius: 10px; min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-weight: 700; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
 .button:hover { transform: translateY(-1px); }
@@ -420,4 +437,65 @@ img { max-width: 100%; display: block; }
   .setting-row { grid-template-columns: 40px 1fr auto; padding-inline: 16px; }
   .setting-row small { font-size: 11px; }
   .placeholder-card { margin-top: 30px; }
+}
+
+/* Backend integration / Clerk / realtime states */
+.app-gate { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 32px; text-align: center; background: var(--surface-soft); }
+.app-gate p { color: var(--muted); margin: 0; }
+.app-spinner { width: 24px; height: 24px; border: 3px solid #dddafe; border-top-color: var(--primary); border-radius: 50%; animation: spin .8s linear infinite; flex: 0 0 auto; }
+.spin { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.inline-alert { margin: 12px 0; border-radius: 10px; padding: 11px 13px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.inline-alert--error { color: #b42318; background: #fff1f0; border: 1px solid #ffd5d2; }
+.inline-alert button { border: 0; background: transparent; font-weight: 800; cursor: pointer; color: inherit; }
+.list-loading { min-height: 180px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--muted); font-size: 13px; }
+.list-loading.compact { min-height: 88px; }
+.empty-state.compact { min-height: 90px; padding: 20px; }
+.sidebar-bottom button.sidebar-logout { width: 100%; border: 0; background: transparent; cursor: pointer; text-align: left; font: inherit; }
+.contact-row--button { width: 100%; border: 0; background: #fff; text-align: left; cursor: pointer; }
+.contact-row--button:disabled { opacity: .6; cursor: wait; }
+.request-row { display: grid; grid-template-columns: auto 1fr auto; }
+.request-actions { display: flex; gap: 7px; align-items: center; }
+.request-accept { color: #067647; background: #ecfdf3; }
+.request-decline, .danger-button { color: #b42318; background: #fff1f0; }
+.connection-pill { font-size: 11px; font-weight: 800; border-radius: 999px; padding: 5px 9px; }
+.connection-pill.online { color: #067647; background: #ecfdf3; }
+.connection-pill.offline { color: #b54708; background: #fffaeb; }
+.device-row .danger-button { justify-self: end; }
+.profile-edit-fields select { min-height: 42px; border: 1px solid var(--border); border-radius: 9px; background: white; padding-inline: 11px; color: var(--text); }
+.clerk-auth-wrap { display: flex; justify-content: center; width: 100%; }
+.clerk-root, .clerk-card-box { width: 100%; max-width: 420px; }
+.clerk-card { box-shadow: none !important; border: 0 !important; width: 100% !important; }
+.clerk-title { letter-spacing: -.025em; }
+.e2ee-indicator { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: #067647; background: #ecfdf3; }
+.chat-error { margin-inline: auto; width: min(94%, 720px); }
+.request-banner { width: min(92%, 720px); align-self: center; margin: 6px auto 18px; border: 1px solid #d6d2ff; background: #f6f5ff; padding: 16px; border-radius: 13px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.request-banner p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.request-banner > div:last-child { display: flex; gap: 8px; }
+.request-banner.waiting { justify-content: center; text-align: center; }
+.chat-empty { margin: auto; min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-align: center; gap: 8px; }
+.chat-empty svg { color: #067647; }
+.chat-empty strong { color: var(--text); }
+.chat-empty p { margin: 0; font-size: 12px; max-width: 360px; }
+.message-bubble--failed { border: 1px dashed #f97066; }
+.typing-indicator { width: 54px; height: 32px; background: #f0f2f6; border-radius: 15px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.typing-indicator span { width: 5px; height: 5px; background: #98a2b3; border-radius: 50%; animation: typing 1s infinite ease-in-out; }
+.typing-indicator span:nth-child(2) { animation-delay: .12s; }
+.typing-indicator span:nth-child(3) { animation-delay: .24s; }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+.send-button:disabled { opacity: .45; cursor: not-allowed; }
+
+.public-contact-page { min-height: 100dvh; background: linear-gradient(180deg, #f8f7ff, #fff); display: grid; place-items: center; padding: 24px; }
+.public-contact-card { width: min(100%, 460px); background: #fff; border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); padding: 30px; text-align: center; }
+.public-contact-card .brand-logo { margin-bottom: 30px; }
+.public-contact-card h1 { margin: 14px 0 5px; font-size: 30px; }
+.public-contact-card > p { color: var(--muted); margin: 0 0 22px; }
+.public-contact-card .button { width: 100%; margin-top: 10px; }
+.public-contact-security { margin-top: 18px; color: var(--muted); font-size: 12px; display: flex; gap: 7px; justify-content: center; align-items: center; }
+
+@media (max-width: 760px) {
+  .request-banner { width: 100%; flex-direction: column; align-items: stretch; }
+  .request-banner > div:last-child .button { flex: 1; }
+  .clerk-auth-wrap { align-items: flex-start; }
+  .public-contact-card { border: 0; box-shadow: none; background: transparent; padding: 18px; }
 }

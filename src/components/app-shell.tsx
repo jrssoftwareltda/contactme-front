@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useClerk } from "@clerk/nextjs";
 import {
   Archive,
   LogOut,
@@ -14,6 +16,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { useContactMe } from "@/providers/contactme-provider";
 
 const nav = [
   { href: "/app", label: "Conversations", icon: MessageCircle },
@@ -25,7 +28,22 @@ const nav = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { signOut } = useClerk();
+  const { profile, loading, error } = useContactMe();
   const isChat = pathname.startsWith("/app/chat/");
+
+  useEffect(() => {
+    if (!loading && profile && !profile.username) router.replace("/onboarding/username");
+  }, [loading, profile, router]);
+
+  if (loading) return <main className="app-gate"><div className="app-spinner" /><p>Connecting securely…</p></main>;
+  if (error) return <main className="app-gate"><h2>Unable to connect</h2><p>{error}</p><button className="button button--primary" onClick={() => location.reload()}>Try again</button></main>;
+  if (!profile?.username) return <main className="app-gate"><div className="app-spinner" /><p>Finishing your profile…</p></main>;
+
+  async function logout() {
+    await signOut({ redirectUrl: "/" });
+  }
 
   return (
     <div className={`app-shell ${isChat ? "app-shell--chat" : ""}`}>
@@ -41,7 +59,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="sidebar-bottom">
           <Link href="/app/profile" className={pathname.startsWith("/app/profile") ? "active" : ""}><UserRound size={18} /> Profile</Link>
           <Link href="/app/settings" className={pathname.startsWith("/app/settings") ? "active" : ""}><Settings size={18} /> Settings</Link>
-          <Link href="/" className="sidebar-logout"><LogOut size={18} /> Log out</Link>
+          <button type="button" onClick={logout} className="sidebar-logout"><LogOut size={18} /> Log out</button>
         </div>
       </aside>
       <main className="app-main">{children}</main>

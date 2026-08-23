@@ -1,2 +1,2 @@
-import { PlaceholderListScreen } from "@/components/placeholder-list-screen";
-export default function Page() { return <PlaceholderListScreen title="Archived" description="Conversations moved out of your main inbox." />; }
+import { ConversationsScreen } from "@/components/conversations-screen";
+export default function Page() { return <ConversationsScreen filter="ARCHIVED" title="Archived" description="Conversations moved out of your main inbox." />; }

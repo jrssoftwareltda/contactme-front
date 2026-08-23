@@ -1,36 +1,56 @@
 # Contact Me — Frontend
 
-Responsive web + mobile-web prototype for **Contact Me** (`www.thecontact.me`), built from the supplied landing-page and application wireframes.
+Responsive web + mobile-web frontend for **Contact Me** (`www.thecontact.me`) integrated with `contactme-back`.
 
-## Included screens
+## Stack
 
-- `/` — high-fidelity landing page
-- `/sign-up` — account creation prototype
-- `/sign-in` — login prototype
-- `/onboarding/username` — choose the public username / link
-- `/app` — conversation inbox
-- `/app/new` — new conversation / contact search
-- `/app/chat/[id]` — responsive chat screen with local message sending
-- `/app/profile` — profile + share/copy personal link
-- `/app/settings` — notifications and privacy settings
-- `/app/favorites`, `/app/archived`, `/app/groups`, `/app/requests` — navigation-ready placeholders
+- Next.js 16 / App Router
+- React 19 / TypeScript
+- Clerk authentication
+- REST integration with Spring Boot
+- STOMP over WebSocket for realtime messages, typing and receipts
+- Web Crypto API for browser-side E2EE
+- IndexedDB for the local device private key and conversation-key cache
 
-All initial application data comes from `src/lib/mock-data.ts`.
+## Implemented integration
 
-## Important authentication decision
+- Clerk `<SignIn />` and `<SignUp />`; Clerk owns e-mail verification.
+- `src/proxy.ts` protects `/app/**` and `/onboarding/**`.
+- Backend profile is created lazily from the Clerk JWT subject and synchronized with Clerk name/avatar on first load.
+- Username availability + profile persistence.
+- Browser device registration with RSA-OAEP public key; private key never leaves the browser.
+- Live conversations, favorites, archived, groups and requests from PostgreSQL through the backend.
+- User search and direct-conversation creation.
+- Request acceptance/decline.
+- AES-256-GCM message encryption/decryption in the browser.
+- Conversation AES keys wrapped per device with RSA-OAEP SHA-256 and persisted only as encrypted envelopes.
+- Realtime STOMP connection authenticated with the Clerk session token.
+- REST history/reconnect synchronization and REST fallback when WebSocket is unavailable.
+- Device list/revocation in Settings.
+- Public `/{username}` Contact Me page backed by `/api/v1/public/users/{username}`.
 
-The e-mail confirmation screen from the early wireframe was intentionally **not implemented**. The current sign-up/sign-in form is only a local prototype so the project runs without external credentials. When Clerk is integrated, Clerk should own sign-up, login, e-mail verification and session protection.
+## Environment
 
-Recommended Clerk flow:
+```bash
+cp .env.example .env.local
+```
 
-1. Replace `/sign-up` and `/sign-in` prototype forms with Clerk components or Clerk Elements.
-2. Redirect a newly created user to `/onboarding/username` after Clerk finishes verification.
-3. Protect `/app/**` and `/onboarding/**` using Clerk middleware/proxy.
-4. Persist the chosen username in the backend and/or Clerk public metadata according to the backend architecture.
+Fill in your Clerk credentials. For local integration, the backend defaults are:
 
-`.env.example` already reserves the standard Clerk environment variables.
+```env
+NEXT_PUBLIC_CONTACTME_API_URL=http://localhost:8080
+NEXT_PUBLIC_CONTACTME_WS_URL=ws://localhost:8080/ws
+```
 
-## Run locally
+The backend must allow the frontend origin, for example:
+
+```env
+FRONTEND_ORIGINS=http://localhost:3000
+```
+
+Configure the backend with the same Clerk instance (`CLERK_ISSUER_URI` / `CLERK_JWK_SET_URI`).
+
+## Run
 
 ```bash
 npm install
@@ -39,16 +59,6 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Build
+## E2EE note
 
-```bash
-npm run build
-npm start
-```
-
-## UI notes
-
-- Responsive break point optimized for desktop and mobile web.
-- The supplied SVG logo is copied unchanged to `public/contact-me-logo.svg` and reused across the screens.
-- Chat, profile, settings, search, copy-link and mock auth interactions are client-side prototype behavior.
-- No backend/API calls are present yet.
+The implementation establishes the intended architecture boundary: plaintext and private keys remain in the browser, while the backend stores ciphertext and encrypted conversation-key envelopes. It is suitable for the project MVP/architecture validation, but a production messenger should move to an audited messaging protocol/library with identity verification, forward secrecy, post-compromise security, robust key rotation and recovery.

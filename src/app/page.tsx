@@ -135,7 +135,7 @@ export default function HomePage() {
         <div className="page-container">
           <Logo />
           <nav><a href="#features">Features</a><a href="#how-it-works">How it works</a><a href="#business">For Business</a><a href="#pricing">Pricing</a></nav>
-          <small>© 2026 Contact Me</small>
+          <small>© {new Date().getFullYear()} Contact Me</small>
         </div>
       </footer>
     </main>
