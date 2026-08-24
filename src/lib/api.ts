@@ -1,6 +1,6 @@
 export type TokenGetter = () => Promise<string | null>;
 
-const API_URL = (process.env.NEXT_PUBLIC_CONTACTME_API_URL || "http://localhost:8080").replace(/\/$/, "");
+const API_URL = (process.env.NEXT_PUBLIC_CONTACTME_API_URL || "https://apicontactme.jrssoftware.com").replace(/\/$/, "");
 
 export class ApiError extends Error {
   constructor(
@@ -68,4 +68,4 @@ export async function publicContactMeRequest<T>(path: string): Promise<T> {
 }
 
 export const contactMeApiUrl = API_URL;
-export const contactMeWsUrl = process.env.NEXT_PUBLIC_CONTACTME_WS_URL || "ws://localhost:8080/ws";
+export const contactMeWsUrl = process.env.NEXT_PUBLIC_CONTACTME_WS_URL || "wss://apicontactme.jrssoftware.com/ws";
