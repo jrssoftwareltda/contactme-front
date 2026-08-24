@@ -1,6 +1,6 @@
 # Contact Me — Frontend
 
-Responsive web + mobile-web frontend for **Contact Me** (`www.thecontact.me`) integrated with `contactme-back`.
+Responsive web + mobile-web frontend for **Contact Me** (`contactme.jrssoftware.com`) integrated with `contactme-back`.
 
 ## Stack
 

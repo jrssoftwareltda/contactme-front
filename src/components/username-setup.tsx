@@ -17,7 +17,7 @@ export function UsernameSetup() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const validFormat = /^[a-z0-9][a-z0-9._-]{2,29}$/.test(username);
-  const link = useMemo(() => `www.thecontact.me/${username || "username"}`, [username]);
+  const link = useMemo(() => `contactme.jrssoftware.com/${username || "username"}`, [username]);
 
   useEffect(() => {
     if (profile?.username) setUsername(profile.username);

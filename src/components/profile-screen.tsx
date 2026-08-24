@@ -20,7 +20,7 @@ export function ProfileScreen() {
     setStatusText(profile?.status === "BUSY" ? "Busy" : profile?.status === "AWAY" ? "Away" : profile?.status === "OFFLINE" ? "Offline" : "Available");
   }, [profile]);
 
-  const link = profile?.contactUrl || `https://www.thecontact.me/${profile?.username || ""}`;
+  const link = profile?.contactUrl || `https://contactme.jrssoftware.com/${profile?.username || ""}`;
 
   async function save() {
     setSaving(true);

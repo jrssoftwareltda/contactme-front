@@ -32,7 +32,7 @@ export function NewConversationScreen() {
     return () => window.clearTimeout(timer);
   }, [query, request]);
 
-  const inviteUrl = useMemo(() => profile?.contactUrl || (profile?.username ? `https://www.thecontact.me/${profile.username}` : "https://www.thecontact.me"), [profile]);
+  const inviteUrl = useMemo(() => profile?.contactUrl || (profile?.username ? `https://contactme.jrssoftware.com/${profile.username}` : "https://contactme.jrssoftware.com"), [profile]);
 
   async function startConversation(contact: PublicUserResponse) {
     if (!contact.username) return;
