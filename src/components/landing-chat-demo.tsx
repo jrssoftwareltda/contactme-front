@@ -9,7 +9,7 @@ export function LandingChatDemo() {
           <span className="browser-dot" />
           <span className="browser-dot" />
           <span className="browser-dot" />
-          <div className="browser-address">thecontact.me/john</div>
+          <div className="browser-address">contactme.jrssoftware.com/john</div>
         </div>
         <div className="demo-chat-header">
           <div className="demo-avatar">JD</div>
@@ -24,7 +24,7 @@ export function LandingChatDemo() {
         <div className="demo-composer"><span>Type a message...</span><Send size={18} /></div>
       </div>
       <div className="mobile-chat-demo">
-        <div className="mobile-browser">thecontact.me/john</div>
+        <div className="mobile-browser">contactme.jrssoftware.com/john</div>
         <div className="demo-chat-header demo-chat-header--mobile">
           <div className="demo-avatar demo-avatar--small">JD</div>
           <div><strong>John Doe</strong><small><i /> Online</small></div>

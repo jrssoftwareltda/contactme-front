@@ -29,7 +29,7 @@ export function AuthForm({ mode }: { mode: "sign-up" | "sign-in" }) {
           <div className="auth-art" aria-hidden="true">
             <span className="auth-art__bubble one">Hello 👋</span>
             <span className="auth-art__bubble two">Let&apos;s talk.</span>
-            <span className="auth-art__link">thecontact.me/you</span>
+            <span className="auth-art__link">contactme.jrssoftware.com/you</span>
           </div>
           <h1>Start connecting<br />in seconds.</h1>
           <p>Create your account and start chatting with anyone, from any device.</p>
